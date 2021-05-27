@@ -1,0 +1,43 @@
+{
+    "name": "glowingblue/redis-setup",
+    "description": "Redis Cache, Queue & Session setup (uses env variables for the Redis config)",
+    "keywords": [
+        "flarum", "redis", "cache", "queue", "session"
+    ],
+    "type": "flarum-extension",
+    "license": "MIT",
+    "support": {
+        "issues": "https://github.com/glowingblue/flarum-ext-redis-setup/issues",
+        "source": "https://github.com/glowingblue/flarum-ext-redis-setup",
+        "forum": "https://community.glowingblue.com/t/flarum-corner",
+        "email": "dev@glowingblue.com"
+    },
+    "homepage": "https://glowingblue.com",
+    "require": {
+        "flarum/core": "^1.0.0",
+        "blomstra/flarum-redis": "^0.4"
+    },
+    "authors": [
+        {
+            "name": "IanM",
+            "homepage": "https://discuss.flarum.org/u/ianm",
+            "role": "Developer"
+        }
+    ],
+    "autoload": {
+        "psr-4": {
+            "GlowingBlue\\RedisSetup\\": "src/"
+        }
+    },
+    "extra": {
+        "flarum-extension": {
+            "title": "GB Redis Setup",
+            "category": "feature",
+            "icon": {
+                "name": "fas fa-tasks",
+                "backgroundColor": "#00a7e3",
+                "color": "#fff"
+            }
+        }
+    }
+}
