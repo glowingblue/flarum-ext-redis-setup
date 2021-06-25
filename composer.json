@@ -15,7 +15,7 @@
     "homepage": "https://glowingblue.com",
     "require": {
         "flarum/core": "^1.0.0",
-        "blomstra/flarum-redis": "^0.4.0@beta"
+        "blomstra/flarum-redis": "^0.4.0"
     },
     "authors": [
         {
