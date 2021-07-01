@@ -21,8 +21,8 @@ return [
 
 	new Extend\Locales(__DIR__.'/resources/locale'),
 
+	new EnableRedis(),
+
 	(new Extend\ServiceProvider())
 		->register(QueueProvider::class),
-
-	new EnableRedis()
 ];

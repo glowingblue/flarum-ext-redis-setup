@@ -18,10 +18,15 @@ class EnableRedis implements ExtenderInterface
     public function extend(Container $container, Extension $extension = null)
     {
         $config = $this->buildConfig();
+        $disabled = $this->getDisabledServices();
         
-        if (Arr::hasAny($config, [self::CACHE_KEY, self::QUEUE_KEY, self::SESSION_KEY])) {
-            (new Redis($config))->disable($this->getDisabledServices())->extend($container, $extension);
+        $redis = (new Redis($config));
+
+        foreach ($disabled as $service) {
+            $redis->disable($service);
         }
+
+        $redis->extend($container, $extension);
     }
 
     private function getDisabledServices(): array
@@ -42,7 +47,7 @@ class EnableRedis implements ExtenderInterface
         if (!(bool) $settings->get('glowingblue-redis.redisSessions', false)) {
             $disabled[] = 'session';
         }
-        
+
         return $disabled;
     }
 
@@ -59,6 +64,7 @@ class EnableRedis implements ExtenderInterface
             'password' => $this->getPassword(),
             'port' => $this->getPort(),
             'database' => $this->getCacheDatabase(),
+            'prefix' => $this->getPrefix(),
         ];
 
         $queue = [
@@ -66,6 +72,7 @@ class EnableRedis implements ExtenderInterface
             'password' => $this->getPassword(),
             'port' => $this->getPort(),
             'database' => $this->getQueueDatabase(),
+            'prefix' => $this->getPrefix(),
         ];
 
         $session = [
@@ -73,6 +80,7 @@ class EnableRedis implements ExtenderInterface
             'password' => $this->getPassword(),
             'port' => $this->getPort(),
             'database' => $this->getSessionDatabase(),
+            'prefix' => $this->getPrefix(),
         ];
 
         $config = Arr::add($config, self::CACHE_KEY, $cache);
@@ -82,9 +90,9 @@ class EnableRedis implements ExtenderInterface
         return $config;
     }
 
-    private function getHost(): ?string
+    private function getHost(): string
     {
-        return getenv('REDIS_HOST') ? getenv('REDIS_HOST') : null;
+        return getenv('REDIS_HOST') ? getenv('REDIS_HOST') : '127.0.0.1';
     }
 
     private function getPassword(): ?string
@@ -110,5 +118,10 @@ class EnableRedis implements ExtenderInterface
     private function getSessionDatabase(): int
     {
         return (int) getenv('REDIS_DATABASE_SESSION') ? getenv('REDIS_DATABASE_SESSION') : 3;
+    }
+
+    private function getPrefix(): string
+    {
+        return getenv('REDIS_PREFIX') ? getenv('REDIS_PREFIX') : 'flarum_';
     }
 }
