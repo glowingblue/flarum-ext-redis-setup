@@ -19,6 +19,7 @@ REDIS_PASSWORD=null # Optional, otherwise null
 REDIS_DATABASE_CACHE=1 # Optional, else uses default
 REDIS_DATABASE_QUEUE=2 # Optional, else uses default
 REDIS_DATABASE_SESSION=3 # Optional, else uses default
+REDIS_PREFIX='flarum_' # Optional, else uses default
 ```
 
 ## 📥 Installation
