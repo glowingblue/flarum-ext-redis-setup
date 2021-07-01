@@ -10,12 +10,12 @@ Makes it easy to enable/disable Redis features:
 - Queue
 - Sessions
 
-For this to work, environment variables have to be set on your host:
+If you are using a local redis setup, you will likely be able to simply use the defaults provided. Any of these can be overridden using environment variables as follows:
 
 ```ini
-REDIS_HOST=null # Required
+REDIS_HOST='127.0.0.1 # Optional, else uses default
 REDIS_PORT=6379 # Optional, else uses default
-REDIS_PASSWORD=null # Required, can be an empty string
+REDIS_PASSWORD=null # Optional, otherwise null
 REDIS_DATABASE_CACHE=1 # Optional, else uses default
 REDIS_DATABASE_QUEUE=2 # Optional, else uses default
 REDIS_DATABASE_SESSION=3 # Optional, else uses default
