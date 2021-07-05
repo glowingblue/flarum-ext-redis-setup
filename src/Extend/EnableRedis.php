@@ -18,15 +18,10 @@ class EnableRedis implements ExtenderInterface
     public function extend(Container $container, Extension $extension = null)
     {
         $config = $this->buildConfig();
-        $disabled = $this->getDisabledServices();
-        
-        $redis = (new Redis($config));
 
-        foreach ($disabled as $service) {
-            $redis->disable($service);
-        }
-
-        $redis->extend($container, $extension);
+        (new Redis($config))
+            ->disable($this->getDisabledServices())
+            ->extend($container, $extension);
     }
 
     private function getDisabledServices(): array
@@ -51,14 +46,8 @@ class EnableRedis implements ExtenderInterface
         return $disabled;
     }
 
-    private function buildConfig(): array
+    private function buildConfig($config = []): array
     {
-        if ($this->getHost() === null) {
-            return [];
-        }
-
-        $config = [];
-
         $cache = [
             'host' => $this->getHost(),
             'password' => $this->getPassword(),

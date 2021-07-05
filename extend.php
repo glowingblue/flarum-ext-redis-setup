@@ -12,7 +12,7 @@
 namespace GlowingBlue\RedisSetup;
 
 use Flarum\Extend;
-use GlowingBlue\RedisSetup\Extend\EnableRedis;
+use GlowingBlue\RedisSetup\Extend as GBExtend;
 use GlowingBlue\RedisSetup\Provider\QueueProvider;
 
 return [
@@ -21,7 +21,7 @@ return [
 
 	new Extend\Locales(__DIR__.'/resources/locale'),
 
-	new EnableRedis(),
+	new GBExtend\EnableRedis(),
 
 	(new Extend\ServiceProvider())
 		->register(QueueProvider::class),
