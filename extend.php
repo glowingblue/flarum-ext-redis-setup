@@ -17,9 +17,9 @@ use GlowingBlue\RedisSetup\Provider\QueueProvider;
 
 return [
 	(new Extend\Frontend('admin'))
-		->js(__DIR__.'/js/dist/admin.js'),
+		->js(__DIR__ . '/js/dist/admin.js'),
 
-	new Extend\Locales(__DIR__.'/resources/locale'),
+	new Extend\Locales(__DIR__ . '/resources/locale'),
 
 	new GBExtend\EnableRedis(),
 

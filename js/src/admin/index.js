@@ -1,3 +1,12 @@
+/*
+ * This file is part of glowingblue/redis-setup.
+ *
+ * Copyright (c) 2021 Ian Morland.
+ *
+ * For the full copyright and license information, please view the LICENSE.md
+ * file that was distributed with this source code.
+ */
+
 import app from 'flarum/admin/app';
 import { extend } from 'flarum/common/extend';
 import StatusWidget from 'flarum/admin/components/StatusWidget';
@@ -14,7 +23,7 @@ app.initializers.add('glowingblue-redis-setup', () => {
 			setting: 'glowingblue-redis.redisSessions',
 			type: 'boolean',
 			label: app.translator.trans(
-				'glowingblue-redis-setup.admin.settings.enable_redis_sessions'
+				'glowingblue-redis-setup.admin.settings.enable_redis_sessions',
 			),
 		})
 		.registerSetting({

@@ -15,59 +15,59 @@ use Illuminate\Contracts\Queue\Queue as QueueContract;
 
 class QueueProvider extends AbstractServiceProvider
 {
-    private $connection = 'default';
+	private $connection = 'default';
 
-    public function boot()
-    {
-        /** @var SettingsRepositoryInterface */
-        $settings = resolve(SettingsRepositoryInterface::class);
+	public function boot()
+	{
+		/** @var SettingsRepositoryInterface */
+		$settings = resolve(SettingsRepositoryInterface::class);
 
-        if (!(bool) $settings->get('glowingblue-redis.enableQueue', false)) {
-            return;
-        }
+		if (!(bool) $settings->get('glowingblue-redis.enableQueue', false)) {
+			return;
+		}
 
-        /** @var ExtensionManager $extensions */
-        $extensions = resolve(ExtensionManager::class);
+		/** @var ExtensionManager $extensions */
+		$extensions = resolve(ExtensionManager::class);
 
-        (new Frontend('admin'))
-            ->content([$this, 'adminWidgetAttributes'])
-            ->extend($this->container, $extensions->getExtension('glowingblue-redis-setup'));
+		(new Frontend('admin'))
+			->content([$this, 'adminWidgetAttributes'])
+			->extend($this->container, $extensions->getExtension('glowingblue-redis-setup'));
 
-        /** @var Dispatcher $dispatcher */
-        $dispatcher = $this->container->make(Dispatcher::class);
-        $dispatcher->listen(Looping::class, [$this, 'trackQueues']);
-    }
+		/** @var Dispatcher $dispatcher */
+		$dispatcher = $this->container->make(Dispatcher::class);
+		$dispatcher->listen(Looping::class, [$this, 'trackQueues']);
+	}
 
-    public function adminWidgetAttributes(Document $document)
-    {
-        /** @var Store $cache */
-        $cache = resolve('cache.store');
-        /** @var QueueContract $queue */
-        $queue = resolve(QueueContract::class);
+	public function adminWidgetAttributes(Document $document)
+	{
+		/** @var Store $cache */
+		$cache = resolve('cache.store');
+		/** @var QueueContract $queue */
+		$queue = resolve(QueueContract::class);
 
-        $queues = $cache->get('blomstra.queue.queues-seen') ?? [];
+		$queues = $cache->get('blomstra.queue.queues-seen') ?? [];
 
-        if ($queue instanceof RedisQueue) {
-            $load = [];
+		if ($queue instanceof RedisQueue) {
+			$load = [];
 
-            foreach ($queues as $name) {
-                $load[$name] = $queue->getRedis()
-                    ->connection($this->connection)
-                    ->llen('queues:' . $name);
-            }
-        }
+			foreach ($queues as $name) {
+				$load[$name] = $queue->getRedis()
+					->connection($this->connection)
+					->llen('queues:' . $name);
+			}
+		}
 
-        $document->payload['blomstraQueuesSeen'] = $queues;
-        $document->payload['blomstraQueuesLoad'] = $load ?? null;
-    }
+		$document->payload['blomstraQueuesSeen'] = $queues;
+		$document->payload['blomstraQueuesLoad'] = $load ?? null;
+	}
 
-    public function trackQueues(Looping $event)
-    {
-        /** @var Store $cache */
-        $cache = resolve('cache.store');
+	public function trackQueues(Looping $event)
+	{
+		/** @var Store $cache */
+		$cache = resolve('cache.store');
 
-        $queues = $cache->get('blomstra.queue.queues-seen') ?? [];
-        $queues = array_merge($queues, (array) explode(',', $event->queue));
-        $cache->put('blomstra.queue.queues-seen', array_unique($queues), 60);
-    }
+		$queues = $cache->get('blomstra.queue.queues-seen') ?? [];
+		$queues = array_merge($queues, (array) explode(',', $event->queue));
+		$cache->put('blomstra.queue.queues-seen', array_unique($queues), 60);
+	}
 }

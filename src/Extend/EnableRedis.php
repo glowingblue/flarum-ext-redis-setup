@@ -11,106 +11,106 @@ use Illuminate\Support\Arr;
 
 class EnableRedis implements ExtenderInterface
 {
-    const CACHE_KEY = 'connections.cache';
-    const QUEUE_KEY = 'connections.queue';
-    const SESSION_KEY = 'connections.session';
-    
-    public function extend(Container $container, Extension $extension = null)
-    {
-        $config = $this->buildConfig();
+	const CACHE_KEY = 'connections.cache';
+	const QUEUE_KEY = 'connections.queue';
+	const SESSION_KEY = 'connections.session';
 
-        (new Redis($config))
-            ->disable($this->getDisabledServices())
-            ->extend($container, $extension);
-    }
+	public function extend(Container $container, Extension $extension = null)
+	{
+		$config = $this->buildConfig();
 
-    private function getDisabledServices(): array
-    {
-        /** @var SettingsRepositoryInterface */
-        $settings = resolve(SettingsRepositoryInterface::class);
+		(new Redis($config))
+			->disable($this->getDisabledServices())
+			->extend($container, $extension);
+	}
 
-        $disabled = [];
+	private function getDisabledServices(): array
+	{
+		/** @var SettingsRepositoryInterface */
+		$settings = resolve(SettingsRepositoryInterface::class);
 
-        if (!(bool) $settings->get('glowingblue-redis.enableCache', false)) {
-            $disabled[] = 'cache';
-        }
+		$disabled = [];
 
-        if (!(bool) $settings->get('glowingblue-redis.enableQueue', false)) {
-            $disabled[] = 'queue';
-        }
+		if (!(bool) $settings->get('glowingblue-redis.enableCache', false)) {
+			$disabled[] = 'cache';
+		}
 
-        if (!(bool) $settings->get('glowingblue-redis.redisSessions', false)) {
-            $disabled[] = 'session';
-        }
+		if (!(bool) $settings->get('glowingblue-redis.enableQueue', false)) {
+			$disabled[] = 'queue';
+		}
 
-        return $disabled;
-    }
+		if (!(bool) $settings->get('glowingblue-redis.redisSessions', false)) {
+			$disabled[] = 'session';
+		}
 
-    private function buildConfig($config = []): array
-    {
-        $cache = [
-            'host' => $this->getHost(),
-            'password' => $this->getPassword(),
-            'port' => $this->getPort(),
-            'database' => $this->getCacheDatabase(),
-            'prefix' => $this->getPrefix(),
-        ];
+		return $disabled;
+	}
 
-        $queue = [
-            'host' => $this->getHost(),
-            'password' => $this->getPassword(),
-            'port' => $this->getPort(),
-            'database' => $this->getQueueDatabase(),
-            'prefix' => $this->getPrefix(),
-        ];
+	private function buildConfig($config = []): array
+	{
+		$cache = [
+			'host' => $this->getHost(),
+			'password' => $this->getPassword(),
+			'port' => $this->getPort(),
+			'database' => $this->getCacheDatabase(),
+			'prefix' => $this->getPrefix(),
+		];
 
-        $session = [
-            'host' => $this->getHost(),
-            'password' => $this->getPassword(),
-            'port' => $this->getPort(),
-            'database' => $this->getSessionDatabase(),
-            'prefix' => $this->getPrefix(),
-        ];
+		$queue = [
+			'host' => $this->getHost(),
+			'password' => $this->getPassword(),
+			'port' => $this->getPort(),
+			'database' => $this->getQueueDatabase(),
+			'prefix' => $this->getPrefix(),
+		];
 
-        $config = Arr::add($config, self::CACHE_KEY, $cache);
-        $config = Arr::add($config, self::QUEUE_KEY, $queue);
-        $config = Arr::add($config, self::SESSION_KEY, $session);
+		$session = [
+			'host' => $this->getHost(),
+			'password' => $this->getPassword(),
+			'port' => $this->getPort(),
+			'database' => $this->getSessionDatabase(),
+			'prefix' => $this->getPrefix(),
+		];
 
-        return $config;
-    }
+		$config = Arr::add($config, self::CACHE_KEY, $cache);
+		$config = Arr::add($config, self::QUEUE_KEY, $queue);
+		$config = Arr::add($config, self::SESSION_KEY, $session);
 
-    private function getHost(): string
-    {
-        return getenv('REDIS_HOST') ? getenv('REDIS_HOST') : '127.0.0.1';
-    }
+		return $config;
+	}
 
-    private function getPassword(): ?string
-    {
-        return getenv('REDIS_PASSWORD') ? getenv('REDIS_PASSWORD') : null;
-    }
+	private function getHost(): string
+	{
+		return getenv('REDIS_HOST') ? getenv('REDIS_HOST') : '127.0.0.1';
+	}
 
-    private function getPort(): string
-    {
-        return getenv('REDIS_PORT') ? getenv('REDIS_PORT') : '6379';
-    }
+	private function getPassword(): ?string
+	{
+		return getenv('REDIS_PASSWORD') ? getenv('REDIS_PASSWORD') : null;
+	}
 
-    private function getCacheDatabase(): int
-    {
-        return (int) getenv('REDIS_DATABASE_CACHE') ? getenv('REDIS_DATABASE_CACHE') : 1;
-    }
+	private function getPort(): string
+	{
+		return getenv('REDIS_PORT') ? getenv('REDIS_PORT') : '6379';
+	}
 
-    private function getQueueDatabase(): int
-    {
-        return (int) getenv('REDIS_DATABASE_QUEUE') ? getenv('REDIS_DATABASE_QUEUE') : 2;
-    }
+	private function getCacheDatabase(): int
+	{
+		return (int) getenv('REDIS_DATABASE_CACHE') ? getenv('REDIS_DATABASE_CACHE') : 1;
+	}
 
-    private function getSessionDatabase(): int
-    {
-        return (int) getenv('REDIS_DATABASE_SESSION') ? getenv('REDIS_DATABASE_SESSION') : 3;
-    }
+	private function getQueueDatabase(): int
+	{
+		return (int) getenv('REDIS_DATABASE_QUEUE') ? getenv('REDIS_DATABASE_QUEUE') : 2;
+	}
 
-    private function getPrefix(): string
-    {
-        return getenv('REDIS_PREFIX') ? getenv('REDIS_PREFIX') : 'flarum_';
-    }
+	private function getSessionDatabase(): int
+	{
+		return (int) getenv('REDIS_DATABASE_SESSION') ? getenv('REDIS_DATABASE_SESSION') : 3;
+	}
+
+	private function getPrefix(): string
+	{
+		return getenv('REDIS_PREFIX') ? getenv('REDIS_PREFIX') : 'flarum_';
+	}
 }

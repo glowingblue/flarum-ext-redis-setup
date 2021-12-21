@@ -1,5 +1,5 @@
-# Created by https://www.toptal.com/developers/gitignore/api/vim,yarn,node,linux,macos,windows,visualstudiocode,composer
-# Edit at https://www.toptal.com/developers/gitignore?templates=vim,yarn,node,linux,macos,windows,visualstudiocode,composer
+# Created by https://www.toptal.com/developers/gitignore/api/vim,yarn,node,macos,linux,windows,composer,visualstudiocode,jetbrains
+# Edit at https://www.toptal.com/developers/gitignore?templates=vim,yarn,node,macos,linux,windows,composer,visualstudiocode,jetbrains
 
 ### Composer ###
 composer.phar
@@ -7,7 +7,110 @@ composer.phar
 
 # Commit your application's lock file https://getcomposer.org/doc/01-basic-usage.md#commit-your-composer-lock-file-to-version-control
 # You may choose to ignore a library lock file http://getcomposer.org/doc/02-libraries.md#lock-file
-# composer.lock
+composer.lock
+
+### JetBrains ###
+# Covers JetBrains IDEs: IntelliJ, RubyMine, PhpStorm, AppCode, PyCharm, CLion, Android Studio, WebStorm and Rider
+# Reference: https://intellij-support.jetbrains.com/hc/en-us/articles/206544839
+
+# User-specific stuff
+.idea/**/workspace.xml
+.idea/**/tasks.xml
+.idea/**/usage.statistics.xml
+.idea/**/dictionaries
+.idea/**/shelf
+
+# Generated files
+.idea/**/contentModel.xml
+
+# Sensitive or high-churn files
+.idea/**/dataSources/
+.idea/**/dataSources.ids
+.idea/**/dataSources.local.xml
+.idea/**/sqlDataSources.xml
+.idea/**/dynamic.xml
+.idea/**/uiDesigner.xml
+.idea/**/dbnavigator.xml
+
+# Gradle
+.idea/**/gradle.xml
+.idea/**/libraries
+
+# Gradle and Maven with auto-import
+# When using Gradle or Maven with auto-import, you should exclude module files,
+# since they will be recreated, and may cause churn.  Uncomment if using
+# auto-import.
+# .idea/artifacts
+# .idea/compiler.xml
+# .idea/jarRepositories.xml
+# .idea/modules.xml
+# .idea/*.iml
+# .idea/modules
+# *.iml
+# *.ipr
+
+# CMake
+cmake-build-*/
+
+# Mongo Explorer plugin
+.idea/**/mongoSettings.xml
+
+# File-based project format
+*.iws
+
+# IntelliJ
+out/
+
+# mpeltonen/sbt-idea plugin
+.idea_modules/
+
+# JIRA plugin
+atlassian-ide-plugin.xml
+
+# Cursive Clojure plugin
+.idea/replstate.xml
+
+# Crashlytics plugin (for Android Studio and IntelliJ)
+com_crashlytics_export_strings.xml
+crashlytics.properties
+crashlytics-build.properties
+fabric.properties
+
+# Editor-based Rest Client
+.idea/httpRequests
+
+# Android studio 3.1+ serialized cache file
+.idea/caches/build_file_checksums.ser
+
+### JetBrains Patch ###
+# Comment Reason: https://github.com/joeblau/gitignore.io/issues/186#issuecomment-215987721
+
+# *.iml
+# modules.xml
+# .idea/misc.xml
+# *.ipr
+
+# Sonarlint plugin
+# https://plugins.jetbrains.com/plugin/7973-sonarlint
+.idea/**/sonarlint/
+
+# SonarQube Plugin
+# https://plugins.jetbrains.com/plugin/7238-sonarqube-community-plugin
+.idea/**/sonarIssues.xml
+
+# Markdown Navigator plugin
+# https://plugins.jetbrains.com/plugin/7896-markdown-navigator-enhanced
+.idea/**/markdown-navigator.xml
+.idea/**/markdown-navigator-enh.xml
+.idea/**/markdown-navigator/
+
+# Cache file creation bug
+# See https://youtrack.jetbrains.com/issue/JBR-2257
+.idea/$CACHE_FILE$
+
+# CodeStream plugin
+# https://plugins.jetbrains.com/plugin/12206-codestream
+.idea/codestream.xml
 
 ### Linux ###
 *~
@@ -32,6 +135,7 @@ composer.phar
 
 # Icon must end with two \r
 Icon
+
 
 # Thumbnails
 ._*
@@ -60,6 +164,9 @@ npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
 lerna-debug.log*
+
+# Lock file => as we don't use npm, but yarn.
+package-lock.json
 
 # Diagnostic reports (https://nodejs.org/api/report.html)
 report.[0-9]*.[0-9]*.[0-9]*.[0-9]*.json
@@ -108,6 +215,9 @@ typings/
 # Optional eslint cache
 .eslintcache
 
+# Optional stylelint cache
+.stylelintcache
+
 # Microbundle cache
 .rpt2_cache/
 .rts2_cache_cjs/
@@ -126,16 +236,26 @@ typings/
 # dotenv environment variables file
 .env
 .env.test
+.env*.local
 
 # parcel-bundler cache (https://parceljs.org/)
 .cache
+.parcel-cache
 
 # Next.js build output
 .next
 
 # Nuxt.js build / generate output
 .nuxt
-#dist
+# dist
+
+# Storybook build outputs
+.out
+.storybook-out
+storybook-static
+
+# rollup.js default build output
+# dist/
 
 # Gatsby files
 .cache/
@@ -161,6 +281,10 @@ typings/
 # Stores VSCode versions used for testing VSCode extensions
 .vscode-test
 
+# Temporary folders
+tmp/
+temp/
+
 ### Vim ###
 # Swap
 [._]*.s[a-v][a-z]
@@ -183,15 +307,14 @@ tags
 
 ### VisualStudioCode ###
 .vscode/*
-!.vscode/settings.json
 !.vscode/tasks.json
 !.vscode/launch.json
-!.vscode/extensions.json
 *.code-workspace
 
 ### VisualStudioCode Patch ###
 # Ignore all local history of files
 .history
+.ionide
 
 ### Windows ###
 # Windows thumbnail cache files
@@ -222,16 +345,17 @@ $RECYCLE.BIN/
 ### yarn ###
 # https://yarnpkg.com/advanced/qa#which-files-should-be-gitignored
 
-# .yarn/unplugged and .yarn/build-state.yml should likely always be ignored since
-# they typically hold machine-specific build artifacts. Ignoring them might however
-# prevent Zero-Installs from working (to prevent this, set enableScripts to false).
-.yarn/unplugged
-.yarn/build-state.yml
+.yarn/*
+!.yarn/releases
+!.yarn/plugins
+!.yarn/sdks
+!.yarn/versions
 
-# .yarn/cache and .pnp.* may be safely ignored, but you'll need to run yarn install
-# to regenerate them between each branch switch.
-# Uncomment the following lines if you're not using Zero-Installs:
-# .yarn/cache
+# if you are NOT using Zero-installs, then:
+# comment the following lines
+!.yarn/cache
+
+# and uncomment the following lines
 # .pnp.*
 
-# End of https://www.toptal.com/developers/gitignore/api/vim,yarn,node,linux,macos,windows,visualstudiocode,composer
+# End of https://www.toptal.com/developers/gitignore/api/vim,yarn,node,macos,linux,windows,composer,visualstudiocode,jetbrains
