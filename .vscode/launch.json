@@ -1,0 +1,17 @@
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "name": "Attach to Flarum",
+      "type": "firefox",
+      "request": "attach",
+      "url": "http://localhost:8888",
+      "pathMappings": [
+        {
+          "url": "webpack://${command:glowingblue-composer-package-name.getName}/src/",
+          "path": "${workspaceFolder}/js/src/"
+        }
+      ]
+    }
+  ]
+}
