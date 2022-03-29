@@ -1,4 +1,4 @@
-MIT License Copyright (c) 2021 Glowing Blue AG
+MIT License Copyright (c) 2022 Glowing Blue AG
 
 Permission is hereby granted, free of charge, to any person obtaining a copy of this software and
 associated documentation files (the "Software"), to deal in the Software without restriction,

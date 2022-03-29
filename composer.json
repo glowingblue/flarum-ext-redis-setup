@@ -26,6 +26,15 @@
       "name": "IanM",
       "homepage": "https://discuss.flarum.org/u/ianm",
       "role": "Developer"
+    },
+    {
+      "name": "Glowing Blue AG",
+      "homepage": "https://glowingblue.com",
+      "role": "Developer"
+    },
+    {
+      "name": "Rafael Horvat",
+      "role": "Developer"
     }
   ],
   "autoload": {
