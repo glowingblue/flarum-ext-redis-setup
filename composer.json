@@ -50,7 +50,10 @@
         "name": "fas fa-tasks",
         "backgroundColor": "#00a7e3",
         "color": "#fff"
-      }
+      },
+      "optional-dependencies": [
+        "blomstra/horizon"
+      ]
     },
     "extiverse": {
       "discuss": "https://discuss.flarum.org/d/27455"

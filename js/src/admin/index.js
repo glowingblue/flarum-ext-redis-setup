@@ -36,6 +36,15 @@ app.initializers.add(slug, () => {
 			label: t(`${prfx}.enable_queue`),
 		});
 
+	if (app.initializers.has('blomstra/horizon')) {
+		app.extensionData.for(slug).registerSetting({
+			setting: 'glowingblue-redis.horizonConfig',
+			type: 'textarea',
+			label: t(`${prfx}.horizon_config`),
+			help: t(`${prfx}.horizon_help_text`),
+		});
+	}
+
 	extend(StatusWidget.prototype, 'items', (items) => {
 		const loads = app.data.blomstraQueuesLoad;
 

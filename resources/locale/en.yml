@@ -5,3 +5,5 @@ glowingblue-redis-setup:
       enable_redis_sessions:
         Enable Redis sessions (all users will be logged out after changing this setting)
       enable_queue: Enable Redis queue
+      horizon_config: "Horizon config (format: JSON)."
+      horizon_help_text: This will be passed to <code>(new \Blomstra\Horizon\Extend\Horizon)->config(...))</code>

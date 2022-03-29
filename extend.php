@@ -22,6 +22,7 @@ return [
 
 	new Extend\Locales(__DIR__ . '/resources/locale'),
 
+	new GBExtend\ConfigureHorizon(),
 	new GBExtend\EnableRedis(),
 
 	(new Extend\ServiceProvider())
