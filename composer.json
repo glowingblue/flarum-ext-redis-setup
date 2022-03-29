@@ -1,5 +1,5 @@
 {
-  "name": "glowingblue/redis-setup-inactive",
+  "name": "glowingblue/redis-setup",
   "description": "Makes it easy to enable/disable Redis features: Cache, Queue & Sessions",
   "keywords": [
     "flarum",
