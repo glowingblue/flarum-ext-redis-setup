@@ -1,7 +1,8 @@
 /*
- * This file is part of glowingblue/redis-setup.
+ * This file is part of glowingblue/redis-setup-inactive.
  *
- * Copyright (c) 2021 Ian Morland.
+ * Copyright (c) 2022 Glowing Blue AG.
+ * Authors: Ian Morland, iPurpl3x, Rafael Horvat.
  *
  * For the full copyright and license information, please view the LICENSE.md
  * file that was distributed with this source code.
@@ -10,26 +11,29 @@
 import app from 'flarum/admin/app';
 import { extend } from 'flarum/common/extend';
 import StatusWidget from 'flarum/admin/components/StatusWidget';
+import { slug } from '../common';
 
-app.initializers.add('glowingblue-redis-setup', () => {
+// Make translation calls shorter
+const t = app.translator.trans.bind(app.translator);
+const prfx = `${slug}.admin.settings`;
+
+app.initializers.add(slug, () => {
 	app.extensionData
-		.for('glowingblue-redis-setup')
+		.for(slug)
 		.registerSetting({
 			setting: 'glowingblue-redis.enableCache',
 			type: 'boolean',
-			label: app.translator.trans('glowingblue-redis-setup.admin.settings.enable_cache'),
+			label: t(`${prfx}.enable_cache`),
 		})
 		.registerSetting({
 			setting: 'glowingblue-redis.redisSessions',
 			type: 'boolean',
-			label: app.translator.trans(
-				'glowingblue-redis-setup.admin.settings.enable_redis_sessions',
-			),
+			label: t(`${prfx}.enable_redis_sessions`),
 		})
 		.registerSetting({
 			setting: 'glowingblue-redis.enableQueue',
 			type: 'boolean',
-			label: app.translator.trans('glowingblue-redis-setup.admin.settings.enable_queue'),
+			label: t(`${prfx}.enable_queue`),
 		});
 
 	extend(StatusWidget.prototype, 'items', (items) => {
