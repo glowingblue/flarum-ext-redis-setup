@@ -1,5 +1,15 @@
 <?php
 
+/*
+ * This file is part of glowingblue/redis-setup.
+ *
+ * Copyright (c) 2022 Glowing Blue AG.
+ * Authors: iPurpl3x, Ian Morland, Rafael Horvat.
+ *
+ * For the full copyright and license information, please view the LICENSE.md
+ * file that was distributed with this source code.
+ */
+
 namespace GlowingBlue\RedisSetup\Provider;
 
 use Flarum\Extend\Frontend;

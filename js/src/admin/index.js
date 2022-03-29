@@ -1,5 +1,5 @@
 /*
- * This file is part of glowingblue/redis-setup-inactive.
+ * This file is part of glowingblue/redis-setup.
  *
  * Copyright (c) 2022 Glowing Blue AG.
  * Authors: Ian Morland, iPurpl3x, Rafael Horvat.

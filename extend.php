@@ -3,7 +3,8 @@
 /*
  * This file is part of glowingblue/redis-setup.
  *
- * Copyright (c) 2021 Ian Morland.
+ * Copyright (c) 2022 Glowing Blue AG.
+ * Authors: Ian Morland, iPurpl3x, Rafael Horvat.
  *
  * For the full copyright and license information, please view the LICENSE.md
  * file that was distributed with this source code.
