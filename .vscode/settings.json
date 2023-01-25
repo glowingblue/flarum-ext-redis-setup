@@ -65,6 +65,7 @@
     "bmewburn.vscode-intelephense-client",
     "dbaeumer.vscode-eslint",
     "esbenp.prettier-vscode",
-    "felixfbecker.php-debug"
+    "xdebug.php-debug",
+    "firefox-devtools.vscode-firefox-debug"
   ]
 }
