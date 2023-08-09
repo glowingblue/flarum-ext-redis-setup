@@ -3,7 +3,7 @@
 /*
  * This file is part of glowingblue/redis-setup.
  *
- * Copyright (c) 2022 Glowing Blue AG.
+ * Copyright (c) 2023 Glowing Blue AG.
  * Authors: Ian Morland, iPurpl3x, Rafael Horvat.
  *
  * For the full copyright and license information, please view the LICENSE.md
@@ -58,28 +58,23 @@ class EnableRedis implements ExtenderInterface
 
 	private function buildConfig($config = []): array
 	{
-		$cache = [
+		$base = [
 			'host' => $this->getHost(),
 			'password' => $this->getPassword(),
 			'port' => $this->getPort(),
-			'database' => $this->getCacheDatabase(),
 			'prefix' => $this->getPrefix(),
 		];
 
-		$queue = [
-			'host' => $this->getHost(),
-			'password' => $this->getPassword(),
-			'port' => $this->getPort(),
-			'database' => $this->getQueueDatabase(),
-			'prefix' => $this->getPrefix(),
+		$cache = $base + [
+			'database' => static::getCacheDatabase(),
 		];
 
-		$session = [
-			'host' => $this->getHost(),
-			'password' => $this->getPassword(),
-			'port' => $this->getPort(),
-			'database' => $this->getSessionDatabase(),
-			'prefix' => $this->getPrefix(),
+		$queue = $base + [
+			'database' => static::getQueueDatabase(),
+		];
+
+		$session = $base + [
+			'database' => static::getSessionDatabase(),
 		];
 
 		$config = Arr::add($config, self::CACHE_KEY, $cache);
@@ -89,37 +84,37 @@ class EnableRedis implements ExtenderInterface
 		return $config;
 	}
 
-	private function getHost(): string
+	public static function getHost(): string
 	{
 		return getenv('REDIS_HOST') ? getenv('REDIS_HOST') : '127.0.0.1';
 	}
 
-	private function getPassword(): ?string
+	public static function getPassword(): ?string
 	{
 		return getenv('REDIS_PASSWORD') ? getenv('REDIS_PASSWORD') : null;
 	}
 
-	private function getPort(): string
+	public static function getPort(): string
 	{
 		return getenv('REDIS_PORT') ? getenv('REDIS_PORT') : '6379';
 	}
 
-	private function getCacheDatabase(): int
+	public static function getCacheDatabase(): int
 	{
 		return (int) getenv('REDIS_DATABASE_CACHE') ? getenv('REDIS_DATABASE_CACHE') : 1;
 	}
 
-	private function getQueueDatabase(): int
+	public static function getQueueDatabase(): int
 	{
 		return (int) getenv('REDIS_DATABASE_QUEUE') ? getenv('REDIS_DATABASE_QUEUE') : 2;
 	}
 
-	private function getSessionDatabase(): int
+	public static function getSessionDatabase(): int
 	{
 		return (int) getenv('REDIS_DATABASE_SESSION') ? getenv('REDIS_DATABASE_SESSION') : 3;
 	}
 
-	private function getPrefix(): string
+	public static function getPrefix(): string
 	{
 		return getenv('REDIS_PREFIX') ? getenv('REDIS_PREFIX') : 'flarum_';
 	}
