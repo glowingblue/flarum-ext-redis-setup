@@ -37,12 +37,6 @@
       "role": "Developer"
     }
   ],
-  "repositories": {
-    "extiverse": {
-      "type": "composer",
-      "url": "https://extiverse.com/composer/"
-    }
-  },
   "autoload": {
     "psr-4": {
       "GlowingBlue\\RedisSetup\\": "src/"
