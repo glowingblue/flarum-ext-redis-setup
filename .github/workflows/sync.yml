@@ -1,0 +1,14 @@
+name: GB Redis Setup Sync
+
+on:
+  workflow_dispatch:
+  push:
+    tags:
+      - '*'
+
+jobs:
+  run:
+    uses: glowingblue/flarum-workflow-sync/.github/workflows/sync.yml@master
+    secrets: inherit
+    with:
+      tag: ${{ github.ref_name }}
