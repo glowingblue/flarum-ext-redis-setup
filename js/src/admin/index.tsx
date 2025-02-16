@@ -36,7 +36,7 @@ app.initializers.add(slug, () => {
 			label: t(`${prfx}.enable_queue`),
 		});
 
-	if (app.initializers.has('fof/horizon')) {
+	if (app.initializers.has('fof-horizon')) {
 		app.extensionData.for(slug).registerSetting({
 			setting: 'glowingblue-redis.horizonConfig',
 			type: 'textarea',
