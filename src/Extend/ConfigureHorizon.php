@@ -12,7 +12,7 @@
 
 namespace GlowingBlue\RedisSetup\Extend;
 
-use Blomstra\Horizon\Extend\Horizon;
+use FoF\Horizon\Extend\Horizon;
 use Flarum\Extend\ExtenderInterface;
 use Flarum\Extension\Extension;
 use Flarum\Extension\ExtensionManager;
@@ -25,7 +25,7 @@ class ConfigureHorizon implements ExtenderInterface
 	{
 		$extensions = resolve(ExtensionManager::class);
 
-		if (!$extensions->isEnabled('blomstra-horizon') || !class_exists(Horizon::class)) {
+		if (!$extensions->isEnabled('fof-horizon') || !class_exists(Horizon::class)) {
 			return;
 		}
 

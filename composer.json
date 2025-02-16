@@ -18,8 +18,8 @@
   },
   "homepage": "https://glowingblue.com",
   "require": {
-    "flarum/core": "^1.2.0",
-    "blomstra/flarum-redis": "^0.4.0"
+    "flarum/core": "^1.8.5",
+    "fof/redis": "^1.0"
   },
   "authors": [
     {
@@ -52,11 +52,22 @@
         "color": "#fff"
       },
       "optional-dependencies": [
-        "blomstra/horizon"
+        "fof/horizon"
       ]
     },
     "extiverse": {
       "discuss": "https://discuss.flarum.org/d/27455"
     }
+  },
+  "require-dev": {
+    "flarum/phpstan": "*",
+    "fof/horizon": "^1.0"
+  },
+  "scripts": {
+      "analyse:phpstan": "phpstan analyse",
+      "clear-cache:phpstan": "phpstan clear-result-cache"
+  },
+  "scripts-descriptions": {
+      "analyse:phpstan": "Run static analysis"
   }
 }

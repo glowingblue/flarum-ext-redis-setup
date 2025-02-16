@@ -55,7 +55,7 @@ class QueueProvider extends AbstractServiceProvider
 		/** @var QueueContract $queue */
 		$queue = resolve(QueueContract::class);
 
-		$queues = $cache->get('blomstra.queue.queues-seen') ?? [];
+		$queues = $cache->get('fof.queue.queues-seen') ?? [];
 
 		if ($queue instanceof RedisQueue) {
 			$load = [];
@@ -67,8 +67,8 @@ class QueueProvider extends AbstractServiceProvider
 			}
 		}
 
-		$document->payload['blomstraQueuesSeen'] = $queues;
-		$document->payload['blomstraQueuesLoad'] = $load ?? null;
+		$document->payload['fofQueuesSeen'] = $queues;
+		$document->payload['fofQueuesLoad'] = $load ?? null;
 	}
 
 	public function trackQueues(Looping $event)
@@ -76,8 +76,8 @@ class QueueProvider extends AbstractServiceProvider
 		/** @var Store $cache */
 		$cache = resolve('cache.store');
 
-		$queues = $cache->get('blomstra.queue.queues-seen') ?? [];
+		$queues = $cache->get('fof.queue.queues-seen') ?? [];
 		$queues = array_merge($queues, (array) explode(',', $event->queue));
-		$cache->put('blomstra.queue.queues-seen', array_unique($queues), 60);
+		$cache->put('fof.queue.queues-seen', array_unique($queues), 60);
 	}
 }
