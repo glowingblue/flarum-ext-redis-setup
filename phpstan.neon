@@ -11,4 +11,3 @@ parameters:
     - *.blade.php
   checkMissingIterableValueType: false
   databaseMigrationsPath: ['migrations']
-  
