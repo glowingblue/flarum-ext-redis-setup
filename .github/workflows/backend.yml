@@ -11,8 +11,3 @@ jobs:
       php_versions: '["7.4", "8.0", "8.1", "8.2", "8.3", "8.4"]'
 
       backend_directory: .
-
-    secrets:
-      composer_auth:
-        '{"http-basic": {"repo.packagist.com": {"username": "token", "password":
-        "${{secrets.PRIVATE_PACKAGIST_TOKEN}}"}}}'

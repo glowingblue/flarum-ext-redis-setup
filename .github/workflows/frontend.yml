@@ -17,4 +17,3 @@ jobs:
 
     secrets:
       bundlewatch_github_token: ${{ secrets.BUNDLEWATCH_GITHUB_TOKEN }}
-      composer_auth: '{"bearer":{"extiverse.com": "${{secrets.EXTIVERSE_COMPOSER_TOKEN}}"}}'
