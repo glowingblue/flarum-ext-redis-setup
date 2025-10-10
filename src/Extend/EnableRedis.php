@@ -12,7 +12,7 @@
 
 namespace GlowingBlue\RedisSetup\Extend;
 
-use Blomstra\Redis\Extend\Redis;
+use FoF\Redis\Extend\Redis;
 use Flarum\Extend\ExtenderInterface;
 use Flarum\Extension\Extension;
 use Flarum\Settings\SettingsRepositoryInterface;
@@ -30,8 +30,7 @@ class EnableRedis implements ExtenderInterface
 		$config = $this->buildConfig();
 
 		(new Redis($config))
-			->disable($this->getDisabledServices())
-			->extend($container, $extension);
+			->disable($this->getDisabledServices());
 	}
 
 	private function getDisabledServices(): array
