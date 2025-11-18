@@ -18,6 +18,7 @@
   },
   "homepage": "https://glowingblue.com",
   "require": {
+    "php": "^8.1",
     "flarum/core": "^1.8.5",
     "fof/redis": "^1.0"
   },
