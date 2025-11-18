@@ -30,7 +30,8 @@ class EnableRedis implements ExtenderInterface
 		$config = $this->buildConfig();
 
 		(new Redis($config))
-			->disable($this->getDisabledServices());
+			->disable($this->getDisabledServices())
+			->extend($container, $extension);
 	}
 
 	private function getDisabledServices(): array
