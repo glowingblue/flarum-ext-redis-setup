@@ -13,7 +13,11 @@ jobs:
       frontend_directory: ./js
       backend_directory: .
       js_package_manager: yarn
-      main_git_branch: master
+      main_git_branch: 1.x
+
+      git_actor_name: ${{ vars.GIT_ACTOR_NAME }}
+      git_actor_email: ${{ vars.GIT_ACTOR_EMAIL }}
 
     secrets:
       bundlewatch_github_token: ${{ secrets.BUNDLEWATCH_GITHUB_TOKEN }}
+      git_actor_token: ${{ secrets.GIT_ACTOR_TOKEN }}
