@@ -24,6 +24,7 @@ class EnableRedis implements ExtenderInterface
 	const CACHE_KEY = 'connections.cache';
 	const QUEUE_KEY = 'connections.queue';
 	const SESSION_KEY = 'connections.session';
+	const SETTINGS_KEY = 'connections.settings';
 
 	public function extend(Container $container, Extension $extension = null)
 	{
@@ -45,6 +46,7 @@ class EnableRedis implements ExtenderInterface
 
 		if (!(bool) $settings->get('glowingblue-redis.enableCache', false)) {
 			$disabled[] = 'cache';
+			$disabled[] = 'settings';
 		}
 
 		if (!(bool) $settings->get('glowingblue-redis.enableQueue', false)) {
@@ -79,9 +81,14 @@ class EnableRedis implements ExtenderInterface
 			'database' => static::getSessionDatabase(),
 		];
 
+		$settings = $base + [
+			'database' => static::getSessionDatabase(),
+		];
+
 		$config = Arr::add($config, self::CACHE_KEY, $cache);
 		$config = Arr::add($config, self::QUEUE_KEY, $queue);
 		$config = Arr::add($config, self::SESSION_KEY, $session);
+		$config = Arr::add($config, self::SETTINGS_KEY, $settings);
 
 		return $config;
 	}
