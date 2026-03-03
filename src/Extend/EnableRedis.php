@@ -31,7 +31,7 @@ class EnableRedis implements ExtenderInterface
 
 		/** @var Redis $redis */
 		$redis = (new Redis($config))
-			->disable($this->getDisabledServices());
+			->disable(['settings', ...$this->getDisabledServices()]);
 
 		$redis->extend($container, $extension);
 	}
@@ -88,36 +88,42 @@ class EnableRedis implements ExtenderInterface
 
 	public static function getHost(): string
 	{
-		return getenv('REDIS_HOST') ? getenv('REDIS_HOST') : '127.0.0.1';
+		return getenv('REDIS_HOST') ?: '127.0.0.1';
 	}
 
 	public static function getPassword(): ?string
 	{
-		return getenv('REDIS_PASSWORD') ? getenv('REDIS_PASSWORD') : null;
+		return getenv('REDIS_PASSWORD') ?: null;
 	}
 
 	public static function getPort(): string
 	{
-		return getenv('REDIS_PORT') ? getenv('REDIS_PORT') : '6379';
+		return getenv('REDIS_PORT') ?: '6379';
 	}
 
 	public static function getCacheDatabase(): int
 	{
-		return (int) getenv('REDIS_DATABASE_CACHE') ? getenv('REDIS_DATABASE_CACHE') : 1;
+		$val = getenv('REDIS_DATABASE_CACHE');
+
+		return $val !== false ? (int) $val : 1;
 	}
 
 	public static function getQueueDatabase(): int
 	{
-		return (int) getenv('REDIS_DATABASE_QUEUE') ? getenv('REDIS_DATABASE_QUEUE') : 2;
+		$val = getenv('REDIS_DATABASE_QUEUE');
+
+		return $val !== false ? (int) $val : 2;
 	}
 
 	public static function getSessionDatabase(): int
 	{
-		return (int) getenv('REDIS_DATABASE_SESSION') ? getenv('REDIS_DATABASE_SESSION') : 3;
+		$val = getenv('REDIS_DATABASE_SESSION');
+
+		return $val !== false ? (int) $val : 3;
 	}
 
 	public static function getPrefix(): string
 	{
-		return getenv('REDIS_PREFIX') ? getenv('REDIS_PREFIX') : 'flarum_';
+		return getenv('REDIS_PREFIX') ?: 'flarum_';
 	}
 }
