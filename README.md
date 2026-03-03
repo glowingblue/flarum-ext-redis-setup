@@ -38,6 +38,14 @@ composer update glowingblue/redis-setup
 php flarum cache:clear
 ```
 
+## Compatibility with `fof/redis`
+
+This extension depends on [`fof/redis`](https://github.com/FriendsOfFlarum/redis) and deliberately disables the **`settings` service** that `fof/redis` ≥ 1.1 provides.
+
+`fof/redis`'s settings service replaces Flarum's `SettingsRepositoryInterface` with a Redis-backed caching layer. However, this extension reads settings (e.g. which Redis services to enable) during its own boot sequence — *before* Redis is fully wired into the container. Enabling the Redis settings cache here would create a circular dependency: configuring Redis requires reading settings, but reading settings requires Redis.
+
+The `settings` service from `fof/redis` is therefore always disabled in this extension's extender. If you want Redis-backed settings caching, configure `fof/redis` directly in your project's root `extend.php` instead of using this extension.
+
 ## 🔗 Links
 
 -   [Flarum Discuss post](https://discuss.flarum.org/d/27455)
